@@ -7,8 +7,6 @@ import 'package:tezda_task_project/controllers/product_controller.dart';
 import 'package:tezda_task_project/model/product_model.dart';
 import 'package:tezda_task_project/widgets/reviews_widget.dart';
 import 'package:tezda_task_project/widgets/text_widget.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import '../../util/helpers.dart';
 import '../../widgets/appBar.dart';
 import '../../widgets/button_widget.dart';

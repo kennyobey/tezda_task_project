@@ -1,8 +1,9 @@
 
 
 import 'package:get/get.dart';
-import 'package:tezda_task_project/controllers/bottom_nav_controller.dart';
 import 'package:tezda_task_project/controllers/login_controller.dart';
+
+import '../controllers/sign_up_controller.dart';
 
 class LoginBinding implements Bindings {
   @override
@@ -11,17 +12,13 @@ class LoginBinding implements Bindings {
   }
 }
 
-// class RegistrationBinding implements Bindings {
-//   @override
-//   void dependencies() {
-//     Get.lazyPut<SignupController>(() => SignupController());
-//   }
-// }
-
-class BottomNavBinding implements Bindings {
+class RegistrationBinding implements Bindings {
   @override
   void dependencies() {
-    Get.put<BottomNavController>(BottomNavController(), permanent: true);
+    Get.lazyPut<SignUpController>(() => SignUpController());
   }
 }
+
+
+
 

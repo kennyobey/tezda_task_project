@@ -7,12 +7,15 @@ import 'package:tezda_task_project/screens/startup/splash_screen.dart';
 
 import 'controllers/login_controller.dart';
 import 'controllers/sign_up_controller.dart';
+import 'controllers/user_controller.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Get.put(ProductController());
   Get.put(LoginController());
   Get.put(SignUpController());
-  Get.put(ProductController());
+  Get.put(UserController());
+
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,

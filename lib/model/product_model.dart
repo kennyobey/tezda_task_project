@@ -5,6 +5,7 @@ class Product {
   final String category;
   final String description;
   final String image;
+  bool isFavorite; // Added isFavorite
 
   Product({
     required this.id,
@@ -13,6 +14,7 @@ class Product {
     required this.category,
     required this.description,
     required this.image,
+    this.isFavorite = false, // Default value
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class Product {
       category: json['category'] as String,
       description: json['description'] as String,
       image: json['image'] as String,
+      isFavorite: json['isFavorite'] ?? false, // Default to false if not present
     );
   }
 }
