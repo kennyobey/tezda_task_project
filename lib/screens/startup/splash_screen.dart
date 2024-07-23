@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:tezda_task_project/constant.dart/colors.dart';
 import 'package:tezda_task_project/constant.dart/spaces.dart';
 import 'package:tezda_task_project/screens/authentication/login_page.dart';
+import '../../controllers/login_controller.dart';
+import '../../widgets/bottom_nav_bar.dart';
 import '../../widgets/text_widget.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   Timer? timer;
+  final LoginController loginController = Get.put(LoginController());
 
   @override
   void initState() {
@@ -24,21 +27,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   startTime() async {
     var duration = const Duration(seconds: 5);
-    return Timer(duration, route);
+    return Timer(duration, checkTokenAndNavigate);
   }
 
-  void route() {
-    Get.offAll(() =>  LoginPage());
+  void checkTokenAndNavigate() async {
+    final token = await loginController.getToken();
+    if (token != null) {
+      // Token exists, navigate to home screen
+      Get.offAll(() => MyNavigationBar());
+    } else {
+      // No token, navigate to login screen
+      Get.offAll(() => const LoginPage());
+    }
   }
-  // route() async {
-  //   if (authController.authStatus == AuthStatus.isFirstTime) {
-  //     Get.offAll(() => const Onboarding());
-  //   } else if (authController.authStatus == AuthStatus.authenticated) {
-  //     Get.offAll(() => MyNavigationBar());
-  //   } else {
-  //     Get.offAll(() => const LoginPage());
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

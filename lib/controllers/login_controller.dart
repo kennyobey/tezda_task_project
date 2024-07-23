@@ -10,9 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../widgets/bottom_nav_bar.dart';
 
-
 class LoginController extends BaseUiController {
-  //final authController = Get.find<AuthController>();
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -44,45 +42,44 @@ class LoginController extends BaseUiController {
   void toggleShowPassword() => hidePassword.value = !hidePassword.value;
 
   Future<void> login(String username, String password) async {
-  final headers = {'Content-Type': 'application/json'};
-  final body = jsonEncode({
-    'username': username,
-    'password': password,
-  });
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({
+      'username': username,
+      'password': password,
+    });
 
-  setBusy(true);
+    setBusy(true);
 
-  try {
-    final response = await http.post(
-      Uri.parse('https://fakestoreapi.com/auth/login'),
-      headers: headers,
-      body: body,
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('https://fakestoreapi.com/auth/login'),
+        headers: headers,
+        body: body,
+      );
 
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-      if (kDebugMode) {
-        print(jsonResponse);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        if (kDebugMode) {
+          print(jsonResponse);
+        }
+        _toastService.success('Login successful');
+
+        final token = jsonResponse['token'];
+        await _secureStorage.write(key: 'auth_token', value: token);
+        print("Token is $token");
+
+        Get.offAll(() => MyNavigationBar());
+      } else if (response.statusCode == 401 || response.statusCode == 403) {
+        _toastService.error('Invalid username or password');
+      } else {
+        _toastService.error('Failed to login. Please try again.');
       }
-      _toastService.success('Login successful');
-
-      final token = jsonResponse['token'];
-      print("Token is ${token}");
-
-      Get.offAll(() => MyNavigationBar());
-     
-    } else {
-      final jsonResponse = jsonDecode(response.body);
-      final message = jsonResponse['message'] ?? 'Failed to login';
-      _toastService.error('Failed to login: $message');
+    } catch (e) {
+      _toastService.error('Network error: $e');
+    } finally {
+      setBusy(false);
     }
-  } catch (e) {
-    _toastService.error('Network error: $e');
-   
-  } finally {
-    setBusy(false);
   }
-}
 
   Future<String?> getToken() async {
     return await _secureStorage.read(key: 'auth_token');
@@ -97,7 +94,7 @@ class LoginController extends BaseUiController {
     final token = await getToken();
     if (token != null) {
       // Optionally: Verify token with server
-      Get.offAll(() =>  HomePage());
+      Get.offAll(() => HomePage());
     } else {
       Get.offAll(() => const LoginPage());
     }

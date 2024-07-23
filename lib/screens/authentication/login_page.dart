@@ -21,6 +21,7 @@ class LoginPage extends GetView<LoginController> {
       backgroundColor: AppColors.primaryWhite,
       appBar: const AppBarWidget(
         title: "Log In",
+         prefixIcon: SizedBox(),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -15,13 +15,14 @@ import '../../controllers/sign_up_controller.dart';
 
 class SignUpPage extends GetView<SignUpController> {
   const SignUpPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryWhite,
       appBar: const AppBarWidget(
         title: "Sign Up",
+        prefixIcon: SizedBox(),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -119,15 +120,20 @@ class SignUpPage extends GetView<SignUpController> {
                   );
                 }),
                 verticalSpaceMedium,
-                CustomFillButton(
-                  onTap: () {
-                    if (controller.formKey.currentState!.validate()) {
-                      controller.formKey.currentState!.save();
-                      controller.signup(controller.createUser());
-                    }
-                  },
-                  buttonText: 'Sign Up',
-                ),
+                Obx(() {
+                  return CustomFillButton(
+                    onTap: controller.isLoading.value
+                        ? null
+                        : () {
+                            if (controller.formKey.currentState!.validate()) {
+                              controller.formKey.currentState!.save();
+                              controller.signup(controller.createUser());
+                            }
+                          },
+                    buttonText: 'Sign Up',
+                    isLoading: controller.isLoading.value,
+                  );
+                }),
                 verticalSpaceMedium,
                 Center(
                   child: Text.rich(

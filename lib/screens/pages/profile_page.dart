@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:tezda_task_project/constant.dart/spaces.dart';
 import '../../constant.dart/colors.dart';
+import '../../controllers/login_controller.dart';
 import '../../controllers/user_controller.dart';
 import '../../widgets/appBar.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/text_widget.dart';
 import 'edit_profile.dart';
 
-
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
   final UserController userController = UserController.to;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,12 +64,8 @@ class ProfilePage extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(70),
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       radius: 50,
-                      child: SvgPicture.asset(
-                        "aasset/svgs/success_icon.svg",
-                        fit: BoxFit.fill,
-                      ),
                     ),
                   ),
                 ),
@@ -149,6 +145,34 @@ class ProfilePage extends StatelessWidget {
                   ],
                 ),
               ),
+              verticalSpaceSmall,
+              GestureDetector(
+                onTap: showLogoutDialog, // Call the dialog function
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColors.primaryRed,
+                      ),
+                      borderRadius: BorderRadius.circular(8)),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        color: AppColors.primaryRed,
+                      ),
+                      horizontalSpaceTiny,
+                      CustomText(
+                        title: "Log Out",
+                        color: AppColors.primaryRed,
+                        size: 15,
+                        weight: FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               verticalSpaceMedium,
               CustomFillButton(
                 onTap: () {
@@ -160,6 +184,26 @@ class ProfilePage extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+
+  void showLogoutDialog() {
+    Get.defaultDialog(
+      title: "Confirm Logout",
+      middleText: "Are you sure you want to log out?",
+      textConfirm: "Yes",
+      textCancel: "No",
+      confirmTextColor: Colors.white,
+      cancelTextColor: AppColors.primaryRed,
+      buttonColor: AppColors.primaryOrange,
+      onConfirm: () {
+        Get.back(); // Close the dialog
+
+        Get.find<LoginController>().logout();
+      },
+      onCancel: () {
+        Get.back(); // Close the dialog
+      },
     );
   }
 }

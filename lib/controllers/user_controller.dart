@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../model/user_model.dart';
-import '../screens/pages/edit_profile.dart';
 import '../service/toast_service.dart'; // Replace with your actual import
 
 class UserController extends GetxController {
