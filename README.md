@@ -6,6 +6,10 @@ A new Flutter project.
 
 Project Summary
 
+Here is the login details,the api only accept the the below credentials. Thanks.
+ username: "mor_2314",
+ password: "83r5^_"
+
 In this project, I focused on implementing and optimizing several key features:
 
 Efficient Data Fetching and Display: Utilizing API (https://fakestoreapi.com/) ![image](https://github.com/user-attachments/assets/4721cccf-e791-41ad-84d7-6ae644a075c1)
