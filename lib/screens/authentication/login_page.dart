@@ -90,12 +90,11 @@ class LoginPage extends GetView<LoginController> {
               }),
               const Spacer(),
               Obx(() {
-                return controller.isBusy
-                    ? const Center(child: CircularProgressIndicator())
-                    : CustomFillButton(
-                        onTap: controller.onLoginPressed,
-                        buttonText: 'Login',
-                      );
+                return CustomFillButton(
+                  onTap: controller.isBusy ? null : controller.onLoginPressed,
+                  buttonText: 'Login',
+                  isLoading: controller.isBusy,
+                );
               }),
               verticalSpaceSmall,
               Center(

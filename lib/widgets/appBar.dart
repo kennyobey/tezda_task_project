@@ -1,6 +1,6 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tezda_task_project/constant.dart/colors.dart';
 import 'package:tezda_task_project/widgets/text_widget.dart';
 

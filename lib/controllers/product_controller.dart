@@ -30,7 +30,6 @@ class ProductController extends GetxController {
         List<dynamic> jsonResponse = jsonDecode(response.body);
         productsList.value =
             jsonResponse.map((json) => Product.fromJson(json)).toList();
-        print("Product list fetched: ${productsList.value}");
       } else {
         final message = 'Failed to load products: ${response.statusCode}';
         errorMessage.value = message;
@@ -43,7 +42,6 @@ class ProductController extends GetxController {
     } finally {
       isLoading(false);
     }
-    print("Final product list: ${productsList.value}");
   }
 
   void toggleFavorite(Product product) {

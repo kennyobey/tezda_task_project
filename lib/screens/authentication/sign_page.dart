@@ -15,8 +15,7 @@ import '../../controllers/sign_up_controller.dart';
 
 class SignUpPage extends GetView<SignUpController> {
   const SignUpPage({super.key});
-
-  @override
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

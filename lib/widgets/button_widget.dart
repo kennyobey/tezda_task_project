@@ -17,6 +17,7 @@ class CustomFillButton extends StatelessWidget {
     this.textSize,
     this.fontWeight,
   });
+  
   final double? width;
   final double? height;
   final double? textSize;
@@ -24,10 +25,11 @@ class CustomFillButton extends StatelessWidget {
   final Color? textColor;
   final Color? buttonColor;
   final Color? boarderColor;
-  final String? buttonText;
+  final String buttonText; // Updated to be non-nullable
   final VoidCallback? onTap;
   final BorderRadiusGeometry? borderRadius;
   final bool isLoading;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -36,16 +38,17 @@ class CustomFillButton extends StatelessWidget {
         width: width ?? MediaQuery.of(context).size.width,
         height: height ?? 45,
         decoration: BoxDecoration(
-            color: buttonColor ?? AppColors.primaryOrange,
-            borderRadius: borderRadius ?? BorderRadius.circular(10),
-            border: Border.all(color: boarderColor ?? AppColors.primaryOrange)),
+          color: buttonColor ?? AppColors.primaryOrange,
+          borderRadius: borderRadius ?? BorderRadius.circular(10),
+          border: Border.all(color: boarderColor ?? AppColors.primaryOrange),
+        ),
         child: Center(
           child: (isLoading)
               ? const CircularProgressIndicator(
                   color: Colors.white,
                 )
               : CustomText(
-                  title: buttonText!,
+                  title: buttonText,
                   size: textSize ?? 16,
                   weight: fontWeight ?? FontWeight.w600,
                   textAlign: TextAlign.center,
