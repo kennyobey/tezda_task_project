@@ -78,7 +78,7 @@ class ProductPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomText(
-                          title: "₦ ${Utils.currencyFormat(product.price)}",
+                          title: "\$ ${Utils.currencyFormat(product.price)}",
                           color: AppColors.primaryOrange,
                           size: 24,
                           weight: FontWeight.w500,

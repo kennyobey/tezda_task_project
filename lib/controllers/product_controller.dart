@@ -4,12 +4,15 @@ import 'package:tezda_task_project/model/product_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../service/toast_service.dart';
+import '../util/app_constants.dart';
 
 class ProductController extends GetxController {
   static ProductController get to => Get.find();
 
   var productsList = <Product>[].obs;
   var favoriteProducts = <Product>[].obs;
+  var filteredProducts =
+      <Product>[].obs; // Observable list for filtered products
   var isLoading = true.obs;
   var errorMessage = ''.obs;
 
@@ -24,12 +27,12 @@ class ProductController extends GetxController {
   Future<void> fetchProducts() async {
     isLoading(true);
     try {
-      final response =
-          await http.get(Uri.parse('https://fakestoreapi.com/products'));
+      final response = await http.get(Uri.parse(ApiLink.product));
       if (response.statusCode == 200) {
         List<dynamic> jsonResponse = jsonDecode(response.body);
         productsList.value =
             jsonResponse.map((json) => Product.fromJson(json)).toList();
+        filteredProducts.value = productsList; // Initialize with all products
       } else {
         final message = 'Failed to load products: ${response.statusCode}';
         errorMessage.value = message;
@@ -41,6 +44,19 @@ class ProductController extends GetxController {
       _toastService.error(errorMessage);
     } finally {
       isLoading(false);
+    }
+  }
+
+  void filterProducts(String query) {
+    if (query.isEmpty) {
+      filteredProducts.value =
+          productsList; // Show all products if no search query
+    } else {
+      filteredProducts.value = productsList.where((product) {
+        final productName = product.title.toLowerCase();
+        final searchQuery = query.toLowerCase();
+        return productName.contains(searchQuery);
+      }).toList();
     }
   }
 

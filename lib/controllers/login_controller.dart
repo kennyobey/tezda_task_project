@@ -8,6 +8,7 @@ import 'package:tezda_task_project/screens/pages/home_page.dart';
 import 'package:tezda_task_project/service/toast_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../util/app_constants.dart';
 import '../widgets/bottom_nav_bar.dart';
 
 class LoginController extends BaseUiController {
@@ -52,7 +53,7 @@ class LoginController extends BaseUiController {
 
     try {
       final response = await http.post(
-        Uri.parse('https://fakestoreapi.com/auth/login'),
+        Uri.parse(ApiLink.login),
         headers: headers,
         body: body,
       );

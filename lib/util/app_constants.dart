@@ -1,11 +1,9 @@
-
-
- class ApiLink {
-  
-
-  static const apiUrl =  "https://fakestoreapi.com/";
+class ApiLink {
+  static const apiUrl = "https://fakestoreapi.com/";
 
   static const user = "${apiUrl}users";
-  static const token = "token";
-  static const product = "products";
+  static const login = "$apiUrl/auth/login";
+  static const product = "${apiUrl}products";
+  static const profile = "${apiUrl}users";
+  static const editProfile = "${apiUrl}users";
 }

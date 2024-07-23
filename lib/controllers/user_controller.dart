@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../model/user_model.dart';
-import '../service/toast_service.dart'; // Replace with your actual import
+
+import '../service/toast_service.dart';
+import '../util/app_constants.dart'; // Replace with your actual import
 
 class UserController extends GetxController {
   static UserController get to => Get.find();
@@ -38,8 +40,7 @@ class UserController extends GetxController {
   Future<void> fetchUser(int userId) async {
     isLoading(true);
     try {
-      final response =
-          await http.get(Uri.parse('https://fakestoreapi.com/users/$userId'));
+      final response = await http.get(Uri.parse('${ApiLink.profile}/$userId'));
 
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
@@ -73,7 +74,7 @@ class UserController extends GetxController {
     }
 
     const userId = 1; // Assuming the User model has an 'id' field
-    final url = Uri.parse('https://fakestoreapi.com/users/$userId');
+    final url = Uri.parse('${ApiLink.editProfile}/$userId');
 
     // Construct the request body
     final updatedUser = {

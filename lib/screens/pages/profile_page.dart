@@ -189,10 +189,10 @@ class ProfilePage extends StatelessWidget {
 
   void showLogoutDialog() {
     Get.defaultDialog(
-      title: "Confirm Logout",
       middleText: "Are you sure you want to log out?",
       textConfirm: "Yes",
       textCancel: "No",
+      
       confirmTextColor: Colors.white,
       cancelTextColor: AppColors.primaryRed,
       buttonColor: AppColors.primaryOrange,
