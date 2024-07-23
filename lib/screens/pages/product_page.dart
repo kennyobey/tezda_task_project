@@ -30,28 +30,33 @@ class ProductPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Positioned(
-                  bottom: 100,
-                  right: 200,
-                  child: Container(
-                    height: 20,
-                    width: 30,
-                    color: AppColors.primaryOrange,
+            GestureDetector(
+              onTap: () {
+                // Handle the tap action, e.g., navigate to a larger image view or zoom functionality
+              },
+              child: Stack(
+                children: [
+                  Positioned(
+                    bottom: 100,
+                    right: 200,
+                    child: Container(
+                      height: 20,
+                      width: 30,
+                      color: AppColors.primaryOrange,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 375,
-                  width: Get.width,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: cupertinoActivityIndicator,
-                    image: product.image,
-                    placeholderScale: 5,
-                    fit: BoxFit.contain,
+                  SizedBox(
+                    height: 375,
+                    width: Get.width,
+                    child: FadeInImage.assetNetwork(
+                      placeholder: cupertinoActivityIndicator,
+                      image: product.image,
+                      placeholderScale: 5,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             verticalSpace(8.0),
             Padding(
@@ -82,6 +87,19 @@ class ProductPage extends StatelessWidget {
                           color: AppColors.primaryOrange,
                           size: 24,
                           weight: FontWeight.w500,
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // Handle the like button action
+                            productController.toggleFavorite(product);
+                          },
+                          icon: Icon(
+                            product.isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: AppColors.primaryOrange,
+                            size: 24,
+                          ),
                         ),
                       ],
                     ),
